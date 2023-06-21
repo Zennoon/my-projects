@@ -93,6 +93,10 @@ button {
 .searcher {
   width: 75px;
   font-size: 22px;
+  border-radius: 10px;
+}
+
+.searcher:hover {
   box-shadow: 0 0 10px 5px #177841;
 }
 
