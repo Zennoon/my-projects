@@ -198,6 +198,7 @@ button:hover {
 }
 
 .searcher:hover {
+    display: none;
   background: #000;
   color: #fff;
   box-shadow: 0 0 10px 5px #177841;
