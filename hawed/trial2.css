@@ -203,7 +203,7 @@ button:hover {
   box-shadow: 0 0 10px 5px #177841;
 }
 
-.searcher {
+.search .searcher {
   border: 2px solid transparent;
   background: #fff;
   width: 75px;
