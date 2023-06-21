@@ -93,6 +93,7 @@ button {
 .searcher {
   width: 75px;
   font-size: 22px;
+  box-shadow: 0 0 10px 5px #177841;
 }
 
 input {
@@ -199,7 +200,6 @@ img {
 button:hover {
   background: #177841;
   color: #fff;
-  box-shadow: 0 0 10px 5px #177841;
 }
 
 .searcher:hover {
