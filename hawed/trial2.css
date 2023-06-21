@@ -90,15 +90,6 @@ button {
   border: none;
 }
 
-.searcher {
-  width: 75px;
-  font-size: 22px;
-  border-radius: 10px;
-}
-
-.searcher:hover {
-  box-shadow: 0 0 10px 5px #177841;
-}
 
 input {
   border: none;
@@ -207,7 +198,15 @@ button:hover {
 }
 
 .searcher:hover {
-  
   background: #000;
   color: #fff;
+  box-shadow: 0 0 10px 5px #177841;
+}
+
+.searcher {
+  border: 2px solid transparent;
+  background: #fff;
+  width: 75px;
+  font-size: 22px;
+  border-radius: 10px;
 }
