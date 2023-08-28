@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/4a80508866.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
+    <title>TicTacToe</title>
 </head>
 <body>
-    <script></script>
+    <div class="init_cont">
+    <i class="fa-solid fa-o big-o"></i>
+    <i class="fa-solid fa-x big-x"></i>
+    <button class="init_play_button">PLAY NOW!</button>
+    </div>
+    <script>
+        // User clicks the "PLAY NOW!" button
+        // The tictactoe board (3 * 3 grid of clickable buttons) is created on the screen
+        // Players play on the board by clicking on one of the available buttons on their respective turns
+        // If Player1 clicks, "O" is displayed on the button, and if Player2 clicks, "X" is displayed.
+        // After each move, we check if there exist 3 consecutive horizontal or vertical or diagonal buttons of the same type / character
+        // If there is such a case, there is a winner
+        // The winner is declared, and an option is given to play again or to exit
+        // If User chooses to play again, a new board is created on the screen
+        // If User chooses to exit, the initial page content is displayed
+        // If all buttons are clicked, and there is no winner, there is a tie
+        // A tie message is displaye, and an option is given to play again or to exit
+        // If User chooses to play again, a new board is created on the screen
+        // If User chooses to exit, the initial page content is displayed
+    </script>
 </body>
 </html>
