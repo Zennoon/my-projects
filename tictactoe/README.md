@@ -1,0 +1,1 @@
+This is a project I took on to practice some core javascript concepts like conditionals, loops, DOM manipulations, and so on.
