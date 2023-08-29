@@ -17,9 +17,73 @@
     <button class="init_play_button">PLAY NOW!</button>
     </div>
     <script>
+        'use strict;'
+        const body = document.querySelector("body");
+        const play_button = document.querySelector("button");
+        const init_content = body.innerHTML;
+        let turn = true;
+        let turnIndicator = document.createElement("p");
+
         // User clicks the "PLAY NOW!" button
+        play_button.addEventListener("click", createBoard);
+
         // The tictactoe board (3 * 3 grid of clickable buttons) is created on the screen
+        function createBoard() {
+
+        //      The original page content disappears, but it needs to be saved for later
+            body.innerHTML = "";
+            //      A container for the buttons is created
+            let buttons_Cont = document.createElement("div");
+            buttons_Cont.setAttribute("class", "buttons_cont");
+        //      The container is inserted into the page
+            body.appendChild(createButtons(buttons_Cont));
+        }
+
+        function createButtons(container) {
+            //      Nine buttons of equal size are created and inserted in the container
+            for (let i = 0; i < 9; i++) {
+                let button = document.createElement("button");
+                button.setAttribute("class", "board_button");
+                button.setAttribute("id", `button_${i}`);
+                button.addEventListener("click", (event) => {makeMove(event)});
+                container.appendChild(button);
+            }
+            return container;
+        }
+
         // Players play on the board by clicking on one of the available buttons on their respective turns
+        function makeMove(event) {
+            console.log(`${event.target.attributes.id.value} Clicked`);
+            let button = event.target;
+            const button_id = +button.attributes.id.value.replace("button_", "");
+            if (button.attributes.id.value.includes("clicked")){
+                console.log("Already clicked!")
+            }
+            else {
+                button.setAttribute("id", "clicked");
+                console.log(button_id);
+                changeElement(button);
+                turn = !turn;
+            }
+        }
+
+        function changeElement(element) {
+            const clicked_button = document.createElement("div");
+            decideCharacter(clicked_button);
+            element.replaceWith(clicked_button);
+        }
+
+        function decideCharacter(button) {
+            if (turn === true) {
+                button.innerHTML = '<i class="fa-solid fa-o medium-o"></i>';
+            }
+            else {
+                button.innerHTML = '<i class="fa-solid fa-x medium-x"></i>';
+            }
+        }
+        //      There is a variable that contains information about whose turn it is to make a move
+        //      There should be something on the page that shows whose turn it is
+        
         // If Player1 clicks, "O" is displayed on the button, and if Player2 clicks, "X" is displayed.
         // After each move, we check if there exist 3 consecutive horizontal or vertical or diagonal buttons of the same type / character
         // If there is such a case, there is a winner
