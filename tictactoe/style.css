@@ -14,13 +14,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #74fb8f;
+    background: #011;
 }
 
 .init_play_button {
     border: none;
     padding: 15px 40px;
-    background: #011e07;
+    background: #011;
     color: #06e532;
     font-size: 24px;
     border-radius: 15px;
@@ -50,20 +50,21 @@ body {
     color: #8fb3ff;
     font-size: 400px;
     z-index: -1;
-    -webkit-text-fill-color: black;
+    -webkit-text-fill-color: #011;
     -webkit-text-stroke-width: 10px;
     -webkit-text-stroke-color: #74fb8f;
 }
 
 .buttons_cont {
-    width: 420px;
-    height: 420px;
+    width: 454px;
+    height: 454px;
     padding: 30px;
-    background: #000;
+    background: #011;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     border-radius: 20px;
+    border: 5px solid #74fb8f;
 }
 
 .board_button {
@@ -72,12 +73,13 @@ body {
     outline: none;
     width: 100px;
     height: 100px;
-    background: #74fb8f;
+    background: #011;
+    border: 3px solid #74fb8f;
     border-radius: 20px;
 }
 
 .board_button:hover {
-    background: #06e532;
+    background: #74fb8f;
 }
 
 .turn_indicator {
@@ -86,13 +88,13 @@ body {
 }
 
 .turn_indicator > i {
-    color: #000;
+    color: #74fb8f;
 }
 
 .buttons_cont > div {
     width: 100px;
     height: 100px;
-    background: #000;
+    background: #011;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,27 +107,27 @@ body {
 
 .medium-x {
     font-size: 100px;
-    color: #000;
-    -webkit-text-fill-color: #000;
+    color: #011;
+    -webkit-text-fill-color: #011;
     -webkit-text-stroke-width: 5px;
     -webkit-text-stroke-color: #74fb8f;
 }
 
 .winner_div, .tie_div {
-    color: black;
-    font-size: 70px;
-    margin-top: 50px;
+    color: #fff;
+    font-size: 50px;
+    margin-top: 20px;
 }
 
 .unclicked {
     width: 100px;
     height: 100px;
-    background-color: #000;
+    background-color: #011;
 }
 
 #flash > * {
-    color: #fff;
-    -webkit-text-fill-color: #fff;
+    color: #eee;
+    -webkit-text-fill-color: #eee;
 }
 
 .replay_div {
@@ -136,7 +138,7 @@ body {
 .replay, .exit {
     cursor: pointer;
     padding: 10px 20px;
-    background-color: #011e07;
+    background-color: #011;
     color: #06e532;
     border: none;
     font-size: 24px;
@@ -149,13 +151,5 @@ body {
 
 .exit {
     content: "EXIT";
-}
-
-#white {
-    color: #fff;
-}
-
-#green {
-    color: #74fb8f;
 }
 
