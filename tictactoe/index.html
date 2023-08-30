@@ -21,8 +21,11 @@
         const body = document.querySelector("body");
         const play_button = document.querySelector("button");
         const init_content = body.innerHTML;
+        let buttonArray = [];
         let turn = true;
         let turnIndicator = document.createElement("p");
+        let winnerMoves = [];
+        turnIndicator.setAttribute("class", "turn_indicator");
 
         // User clicks the "PLAY NOW!" button
         play_button.addEventListener("click", createBoard);
@@ -32,11 +35,15 @@
 
         //      The original page content disappears, but it needs to be saved for later
             body.innerHTML = "";
+            turn = true;
             //      A container for the buttons is created
             let buttons_Cont = document.createElement("div");
             buttons_Cont.setAttribute("class", "buttons_cont");
         //      The container is inserted into the page
             body.appendChild(createButtons(buttons_Cont));
+            showTurn();
+            fillArray();
+            body.appendChild(turnIndicator);
         }
 
         function createButtons(container) {
@@ -51,47 +58,185 @@
             return container;
         }
 
+        function fillArray() {
+            for (let i = 0; i <= 8; i++) {
+                buttonArray[i] = 0;
+            }
+        }
+
         // Players play on the board by clicking on one of the available buttons on their respective turns
         function makeMove(event) {
-            console.log(`${event.target.attributes.id.value} Clicked`);
             let button = event.target;
             const button_id = +button.attributes.id.value.replace("button_", "");
             if (button.attributes.id.value.includes("clicked")){
                 console.log("Already clicked!")
             }
             else {
+                modifyArray(button_id);
                 button.setAttribute("id", "clicked");
                 console.log(button_id);
-                changeElement(button);
-                turn = !turn;
+                changeElement(button, button_id);
+                if (checkWin()) {
+                    winner();
+                }
+                else {
+                    if (buttonArray.includes(0)){
+                        turn = !turn;
+                        showTurn();
+                    }
+                    else {
+                        showTie();
+                        replayOptions();
+                    }
+                }
             }
         }
 
-        function changeElement(element) {
+        function modifyArray(index) {
+            buttonArray[index] = turn;
+            console.log(buttonArray);
+        }
+
+        function changeElement(element, id) {
             const clicked_button = document.createElement("div");
+            clicked_button.setAttribute("id", `${id}`)
             decideCharacter(clicked_button);
             element.replaceWith(clicked_button);
         }
 
-        function decideCharacter(button) {
+        //      There is a variable that contains information about whose turn it is to make a move
+        // If Player1 clicks, "O" is displayed on the button, and if Player2 clicks, "X" is displayed.
+        function decideCharacter(element) {
             if (turn === true) {
-                button.innerHTML = '<i class="fa-solid fa-o medium-o"></i>';
+                element.innerHTML = '<i class="fa-solid fa-o medium-o"></i>';
             }
             else {
-                button.innerHTML = '<i class="fa-solid fa-x medium-x"></i>';
+                element.innerHTML = '<i class="fa-solid fa-x medium-x"></i>';
             }
         }
-        //      There is a variable that contains information about whose turn it is to make a move
+
         //      There should be something on the page that shows whose turn it is
-        
-        // If Player1 clicks, "O" is displayed on the button, and if Player2 clicks, "X" is displayed.
+        function showTurn() {
+            decideCharacter(turnIndicator);
+        }
+
+
         // After each move, we check if there exist 3 consecutive horizontal or vertical or diagonal buttons of the same type / character
+        function checkWin() {
+            if (checkVerticalWin()){
+                return true;
+            }
+
+            else if (checkHorizontalWin()){
+                return true;
+            }
+
+            else if (checkDiagonalWin()) {
+                return true;
+            }
+
+            return undefined;
+        }
+
+        function checkVerticalWin() {
+            for (let i = 0; i <= 2; i++) {
+                if (buttonArray[i] !== 0 && (buttonArray[i] === buttonArray[i + 3] && buttonArray[i] === buttonArray[i + 6])){
+                    winnerMoves = [i, i + 3, i + 6];
+                    return true;
+                }
+            }
+            return undefined;
+        }
+
+        function checkHorizontalWin() {
+            for (let i = 0; i <= 2; i++) {
+                let j = i * 3;
+                if (buttonArray[j] !== 0 && (buttonArray[j] === buttonArray[j + 1] && buttonArray[j] === buttonArray[j + 2])){
+                    winnerMoves = [j, j + 1, j + 2];
+                    return true;
+                }
+            }
+            return undefined;
+        }
+
+        function checkDiagonalWin() {
+            if ((buttonArray[4] !== 0) && (((buttonArray[0] === buttonArray[4] && buttonArray[0] === buttonArray[8]) || (buttonArray[2] === buttonArray[4] && buttonArray[2] === buttonArray[6])))) {
+                winnerMoves[0] = 4;
+                winnerMoves[1] = buttonArray[0] === buttonArray[4]? 0 : 2;
+                winnerMoves[2] = buttonArray[0] === buttonArray[4]? 8 : 6;
+                return true;
+            }
+            return undefined;
+        }
         // If there is such a case, there is a winner
         // The winner is declared, and an option is given to play again or to exit
-        // If User chooses to play again, a new board is created on the screen
+        function winner() {
+            declareWinner();
+            removeUnclickedButtons();
+            flashWinnerMoves();
+            replayOptions();
+        }
+        
+        function declareWinner() {
+            const winner_div = document.createElement("div");
+            winner_div.setAttribute("class", "winner_div");
+            winner_div.textContent = turn? "Player1 Wins!" : "Player2 Wins!";
+            turnIndicator.replaceWith(winner_div);
+        }
+
+        function removeUnclickedButtons() {
+            const unclicked_buttons = document.querySelectorAll("button");
+            unclicked_buttons.forEach((button) => {
+                if (button.attributes.class.value === "board_button" && !(button.attributes.id.value.includes("clicked"))) {
+                    const unclicked = document.createElement("div");
+                    unclicked.setAttribute("class", "unclicked")
+                    button.replaceWith(unclicked);
+                }
+            })
+        }
+
+        function flashWinnerMoves() {
+            for (let i of winnerMoves){
+                let winnerButton = document.getElementById(`${i}`);
+                winnerButton.setAttribute("id", "flash");
+            }
+        }
+        
+        function replayOptions() {
+            const replay = document.createElement("div");
+            replay.setAttribute("class", "replay_div");
+            const replayButton = document.createElement("button");
+            replayButton.textContent = "PLAY AGAIN";
+            replayButton.setAttribute("class", "replay");
+            // If User chooses to play again, a new board is created on the screen
+            replayButton.addEventListener("click", createBoard);
+            const exitButton = document.createElement("button");
+            exitButton.textContent = "EXIT";
+            exitButton.setAttribute("class", "exit");
+            exitButton.addEventListener("click", showInitial);
+            replay.appendChild(replayButton);
+            replay.appendChild(exitButton);
+            body.appendChild(replay);
+        }
+
         // If User chooses to exit, the initial page content is displayed
+
+        function showInitial() {
+            turn = true;
+            body.innerHTML = init_content;
+            let replay_button = document.querySelector("button");
+            replay_button.addEventListener("click", createBoard)
+            
+        }
+
         // If all buttons are clicked, and there is no winner, there is a tie
         // A tie message is displaye, and an option is given to play again or to exit
+        function showTie() {
+            const tie_div = document.createElement("div");
+            tie_div.setAttribute("class", "tie_div");
+            tie_div.textContent = "It's a tie!";
+            turnIndicator.replaceWith(tie_div);
+        }
         // If User chooses to play again, a new board is created on the screen
         // If User chooses to exit, the initial page content is displayed
     </script>

@@ -28,7 +28,7 @@ body {
     cursor: pointer;
 }
 
-.init_play_button:hover {
+.init_play_button:hover, .replay:hover, .exit:hover {
     background: #06e532;
     color: #000;
 }
@@ -76,8 +76,16 @@ body {
     border-radius: 20px;
 }
 
+.board_button:hover {
+    background: #06e532;
+}
+
 .turn_indicator {
-    font-size: 36px;
+    font-size: 100px;
+    margin-top: 50px;
+}
+
+.turn_indicator > i {
     color: #000;
 }
 
@@ -102,3 +110,52 @@ body {
     -webkit-text-stroke-width: 5px;
     -webkit-text-stroke-color: #74fb8f;
 }
+
+.winner_div, .tie_div {
+    color: black;
+    font-size: 70px;
+    margin-top: 50px;
+}
+
+.unclicked {
+    width: 100px;
+    height: 100px;
+    background-color: #000;
+}
+
+#flash > * {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}
+
+.replay_div {
+    display: flex;
+    gap: 50px;
+}
+
+.replay, .exit {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #011e07;
+    color: #06e532;
+    border: none;
+    font-size: 24px;
+    border-radius: 10px;
+}
+
+.replay {
+    content: "REPLAY";
+}
+
+.exit {
+    content: "EXIT";
+}
+
+#white {
+    color: #fff;
+}
+
+#green {
+    color: #74fb8f;
+}
+
